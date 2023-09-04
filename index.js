@@ -21,7 +21,6 @@ app.use((req, res, next) => {
 })
 
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({cors:'*'}))
 app.use(express.json());
 app.use('/professor', rotaProfessor);
 app.use('/curso', rotaCurso);
