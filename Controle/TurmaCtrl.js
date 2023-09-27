@@ -6,15 +6,13 @@ export default class TurmaCTRL {
         if (requisiçao.method === "POST" && requisiçao.is('application/json')) {
             const dados = requisiçao.body;
             const Professor = dados.Professor;
-            const Turma = dados.Turma;
             const Curso = dados.Curso;
             const Data = dados.Data;
             const Hora = dados.Hora;
-            const NumeroDaTurma = dados.NumeroDaTurma;
             const QtdAlunos = dados.QtdAlunos;
             const TipoDeAula = dados.TipoDeAula;
-            if (Professor && Turma && Curso && Data && Hora && NumeroDaTurma && TipoDeAula && QtdAlunos) {
-                const turma = new Turma(Professor, Turma, Curso, Data, Hora, NumeroDaTurma, TipoDeAula, QtdAlunos);
+            if (Professor && Curso && Data && Hora && TipoDeAula && QtdAlunos) {
+                const turma = new Turma(Professor, Curso, Data, Hora, TipoDeAula, QtdAlunos);
                 turma.gravar().then(() => {
                     resposta.status(200).json({
                         status: true,
@@ -47,15 +45,13 @@ export default class TurmaCTRL {
         if (requisiçao.method === "PUT" && requisiçao.is('application/json')) {
             const dados = requisiçao.body;
             const Professor = dados.Professor;
-            const Turma = dados.Turma;
             const Curso = dados.Curso;
             const Data = dados.Data;
             const Hora = dados.Hora;
-            const NumeroDaTurma = dados.NumeroDaTurma;
             const QtdAlunos = dados.QtdAlunos;
             const TipoDeAula = dados.TipoDeAula;
-            if (Professor && Turma && Curso && Data && Hora && NumeroDaTurma && TipoDeAula && QtdAlunos) {
-                const turma = new Turma(Professor, Turma, Curso, Data, Hora, NumeroDaTurma, TipoDeAula, QtdAlunos);
+            if (Professor && Curso && Data && Hora && TipoDeAula && QtdAlunos) {
+                const turma = new Turma(Professor, Curso, Data, Hora, TipoDeAula, QtdAlunos);
                 turma.atualizar().then(() => {
                     resposta.status(200).json({
                         status: true,
@@ -88,9 +84,8 @@ export default class TurmaCTRL {
         if (requisiçao.method === "DELETE" && requisiçao.is('application/json')) {
             const dados = requisiçao.body;
             const Professor = dados.Professor;
-            const Turma = dados.Turma;
             if (Turma) {
-                const turma= new Turma(Professor, Turma);
+                const turma= new Turma(Professor);
                 turma.removerDoBancoDados().then(() => {
                     resposta.status(200).json({
                         status: true,

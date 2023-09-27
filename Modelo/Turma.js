@@ -2,21 +2,17 @@ import TurmaBD from '../Persistencia/TurmaBD.js';
 export default class Turma {
 
     #Professor;
-    #Turma;
     #Curso;
     #Data;
     #Hora;
-    #NumeroDaTurma;
     #TipoDeAula;
     #QtdAlunos;
 
-    constructor(Professor, Turma, Curso, Data, Hora, NumeroDaTurma, TipoDeAula, QtdAlunos) {
+    constructor(Professor, Curso, Data, Hora, TipoDeAula, QtdAlunos) {
         this.#Professor = Professor;
-        this.#Turma = Turma;
         this.#Curso = Curso;
         this.#Data = Data;
         this.#Hora = Hora;
-        this.#NumeroDaTurma = NumeroDaTurma;
         this.#TipoDeAula = TipoDeAula;
         this.#QtdAlunos = QtdAlunos
     }
@@ -26,13 +22,6 @@ export default class Turma {
     }
     set Professor(novoProfessor) {
         this.#Professor = novoProfessor
-    }
-
-    get Turma() {
-        return this.#Turma
-    }
-    set Turma(novoTurma) {
-        this.#Turma = novoTurma
     }
 
     get Curso() {
@@ -56,13 +45,6 @@ export default class Turma {
         this.#Hora = novoHora
     }
 
-    get NumeroDaTurma() {
-        return this.#NumeroDaTurma
-    }
-    set NumeroDaTurma(novoNumeroDaTurma) {
-        this.#NumeroDaTurma = novoNumeroDaTurma
-    }
-
     get QtdAlunos() {
         return this.#QtdAlunos
     }
@@ -80,11 +62,9 @@ export default class Turma {
     toJSON() {
         return {
             "Professor": this.#Professor,
-            "Turma": this.#Turma,
             "Curso": this.#Curso,
             "Data": this.#Data,
             "Hora": this.#Hora,
-            "Nº da Turma": this.#NumeroDaTurma,
             "QtdAlunos": this.#QtdAlunos,
             "TipoDeAula": this.#TipoDeAula
         }
