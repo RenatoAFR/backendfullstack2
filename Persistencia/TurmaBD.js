@@ -5,7 +5,7 @@ export default class TurmaBD {
     async incluir(turma) {
         if (turma instanceof Turma) {
             const conexao = await Conectar();
-            const sql = "INSERT INTO turmas(Professor, Curso, Data, Hora, Tipo de Aula, Quantidade de Alunos) VALUES(?,?,?,?,?,?)";
+            const sql = "INSERT INTO turmas(Professor, Curso, Data, Hora, TipoDeAula, QtdAlunos) VALUES(?,?,?,?,?,?)";
             const valores = [turma.Professor, turma.Curso, turma.Data, turma.Hora, turma.TipoDeAula, turma.QtdAlunos];
             await conexao.query(sql, valores);
         }
