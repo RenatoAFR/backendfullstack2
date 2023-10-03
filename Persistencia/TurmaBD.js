@@ -6,7 +6,7 @@ export default class TurmaBD {
         if (turma instanceof Turma) {
             const conexao = await Conectar();
             const sql = "INSERT INTO turmas(Professor, Curso, Data, Hora, TipoDeAula, QtdAlunos) VALUES(?,?,?,?,?,?)";
-            const valores = [turma.Professor, turma.Curso, turma.Data, turma.Hora, turma.TipoDeAula, turma.QtdAlunos];
+            const valores = [turma.Professor, turma.Curso, turma.Data, turma.Hora, turma.TipoDeAula, turma.QtdAlunos ];
             await conexao.query(sql, valores);
         }
     }
@@ -15,7 +15,7 @@ export default class TurmaBD {
         if (turma instanceof Turma) {
             const conexao = await Conectar();
             const sql = "UPDATE turmas SET Curso=?, Data=?, Hora=?, TipoDeAula=?, QtdAlunos=? WHERE Professor=?";
-            const valores = [turma.Professor, turma.Curso, turma.Data, turma.Hora, turma.TipoDeAula, turma.QtdAlunos];
+            const valores = [ turma.Curso, turma.Data, turma.Hora, turma.TipoDeAula, turma.QtdAlunos, turma.Professor];
             await conexao.query(sql, valores);
         }
     }
@@ -23,9 +23,11 @@ export default class TurmaBD {
     async excluir(turma) {
         if (turma instanceof Turma) {
             const conexao = await Conectar();
-            const sql = "DELETE FROM turmas WHERE Professor=?";
             const valores = [turma.Professor];
-            await conexao.query(sql, valores);
+            await conexao.query('DELETE FROM turmas WHERE Professor = ?;', valores);
+        }
+        else {
+            console.log(error.message);
         }
     }
 

@@ -1,4 +1,5 @@
 import Turma from '../Modelo/Turma.js';
+
 export default class TurmaCTRL {
 
     gravar(requisiçao, resposta) {
@@ -11,6 +12,7 @@ export default class TurmaCTRL {
             const Hora = dados.Hora;
             const QtdAlunos = dados.QtdAlunos;
             const TipoDeAula = dados.TipoDeAula;
+            
             if (Professor && Curso && Data && Hora && TipoDeAula && QtdAlunos) {
                 const turma = new Turma(Professor, Curso, Data, Hora, TipoDeAula, QtdAlunos);
                 turma.gravar().then(() => {
