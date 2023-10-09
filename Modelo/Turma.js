@@ -72,7 +72,7 @@ export default class Turma {
 
     async gravar() {
         const turmaBD = new TurmaBD();
-        theis.Professor = await turmaBD.incluir(this);
+        await turmaBD.incluir(this);
     }
 
     async atualizar() {
