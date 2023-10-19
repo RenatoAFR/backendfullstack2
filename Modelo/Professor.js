@@ -1,80 +1,74 @@
 import ProfessorBD from '../Persistencia/ProfessorBD.js';
+export default class Professor {
 
-class Professores{
-
-    #ID;
-    #cpf;
+    #codigo;
     #nome;
-    #tel;
-    #email;
-    #curso;
+    #cpf;
+    #telefone;
+    #codCurso;
 
-    constructor (ID, cpf, nome, tel, email, curso) {
-        this.#ID = ID;
-        this.#cpf = cpf;
+    constructor(codigo, nome, cpf, telefone, codCurso) {
+        this.#codigo = codigo;
         this.#nome = nome;
-        this.#tel = tel;
-        this.#email = email;
-        this.#curso = curso
+        this.#cpf = cpf;
+        this.#telefone = telefone;
+        this.#codCurso = codCurso;
     }
 
-    get ID() {
-        return this.#ID
-    }
-    set ID(novoID) {
-        this.#ID = novoID
+    get codigo() {
+        return this.#codigo
     }
 
-    get cpf() {
-        return this.#cpf
-    }
-    set cpf(novoCpf) {
-        this.#cpf = novoCpf
+    set codigo(novoCodigo) {
+        this.#codigo = novoCodigo
     }
 
     get nome() {
         return this.#nome
     }
+
     set nome(novoNome) {
         this.#nome = novoNome
     }
 
-    get tel() {
-        return this.#tel
-    }
-    set tel(novoTel) {
-        this.#tel = novoTel
+
+    get cpf() {
+        return this.#cpf
     }
 
-    get email() {
-        return this.#email
-    }
-    set email(novoEmail) {
-        this.#email = novoEmail
+    set cpf(novoCpf) {
+        this.#cpf = novoCpf
     }
 
-    get curso() {
-        return this.#curso
+    get telefone() {
+        return this.#telefone
     }
-    set curso(novoCurso) {
-        this.#curso = novoCurso
+
+    set telefone(novoTelefone) {
+        this.#telefone = novoTelefone
+    }
+
+    get codCurso() {
+        return this.#codCurso
+    }
+
+    set codCurso(novoCodCurso) {
+        this.#codCurso = novoCodCurso
     }
 
 
     toJSON() {
         return {
-            "ID": this.#ID,
-            "cpf": this.#cpf,
+            "codigo": this.#codigo,
             "nome": this.#nome,
-            "tel": this.#tel,
-            "email": this.#email,
-            "curso": this.#curso
+            "cpf": this.#cpf,
+            "telefone": this.#telefone,
+            "codCurso": this.#codCurso
         }
     }
-
     async gravar() {
         const professorBD = new ProfessorBD();
-        this.ID = await professorBD.incluir(this);
+        this.#codigo = await professorBD.incluir(this);
     }
 
     async atualizar() {
@@ -89,10 +83,7 @@ class Professores{
 
     async consultar(termo) {
         const professorBD = new ProfessorBD();
-        const professores = await professorBD.consultar(termo);
-        return professores;
+        const professor = await professorBD.consultar(termo);
+        return professor;
     }
-
-}
-
-export default Professores;
+}    

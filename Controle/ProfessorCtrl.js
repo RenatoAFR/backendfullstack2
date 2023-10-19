@@ -1,100 +1,102 @@
-import Professores from '../Modelo/Professor.js';
-
-
-
-
+import Curso from '../Modelo/Curso.js';
+import Professor from '../Modelo/Professor.js';
 export default class ProfessorCTRL {
 
     gravar(requisiçao, resposta) {
         resposta.type("application/json");
+
         if (requisiçao.method === "POST" && requisiçao.is('application/json')) {
             const dados = requisiçao.body;
-            const cpf = dados.cpf;
             const nome = dados.nome;
-            const tel = dados.tel;
-            const email = dados.email;
-            const curso = dados.curso;
-            
-            if (cpf && nome && tel && email && curso) {
-                const professor = new Professores(0, cpf, nome, tel, email, curso);
-                professor.gravar().then(() => {
-                    resposta.status(200).json({
-                        status: true,
-                        ID: professor.ID,
-                        mensagem: "Professor gravado com sucesso!!"
+            const cpf = dados.cpf;
+            const telefone = dados.telefone;
+            const codCurso = dados.codCurso;
+            const cursos = new Curso(0, "").consultarCodigo(codCurso).then((cursos) => {
+                if (cursos) {
+                    const professor = new Professor(0, nome, cpf, telefone, codCurso);
+                    professor.gravar().then(() => {
+                        resposta.status(200).json({
+                            status: true,
+                            Código: professor.codigo,
+                            mensagem: "Professor gravado com sucesso!!"
+                        });
+                    }).catch((erro) => {
+                        resposta.status(500).json({
+                            status: false,
+                            mensagem: erro.message
+                        })
                     });
-                }).catch((erro) => {
-                    resposta.status(500).json({
+                }
+                else {
+                    resposta.status(400).json({
                         status: false,
-                        mensagem: erro.message
-                    })
-                });
-            }
-            else {
-                resposta.status(400).json({
-                    status: false,
-                    mensagem: "Informe todos os dados conforme a documentação da API"
-                });
-            }
+                        mensagem: "Curso não encontrado!"
+                    });
+                }
+            })
         }
         else {
             resposta.status(400).json({
                 status: false,
-                mensagem: "Método não permitido ou dados no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem: "Método não permitido ou Professor no formato JSON não fornecido! Consulte a documentação da API"
             });
         }
     }
 
     atualizar(requisiçao, resposta) {
         resposta.type("application/json");
+
         if (requisiçao.method === "PUT" && requisiçao.is('application/json')) {
             const dados = requisiçao.body;
-            const ID = dados.ID;
-            const cpf = dados.cpf;
+            const codigo = dados.codigo;
             const nome = dados.nome;
-            const tel = dados.tel;
-            const email = dados.email;
-            const curso = dados.curso;
-            if (ID && cpf && nome && tel && email && curso) {
-                const professor = new Professores(ID, cpf, nome, tel, email, curso);
-                professor.atualizar().then(() => {
-                    resposta.status(200).json({
-                        status: true,
-                        mensagem: "Professor atualizado com sucesso!"
+            const cpf = dados.cpf;
+            const telefone = dados.telefone;
+            const codCurso = dados.codCurso;
+            const cursos = new Curso(0, "").consultar(codCurso).then((cursos) => {
+                if (cursos) {
+                    const professor = new Professor(codigo, nome, cpf, telefone, codCurso);
+                    professor.atualizar().then(() => {
+                        resposta.status(200).json({
+                            status: true,
+                            Código: professor.codigo,
+                            mensagem: "Professor atualizado com sucesso!!"
+                        });
+                    }).catch((erro) => {
+                        resposta.status(500).json({
+                            status: false,
+                            mensagem: erro.message
+                        })
                     });
-                }).catch((erro) => {
-                    resposta.status(500).json({
+                }
+                else {
+                    resposta.status(400).json({
                         status: false,
-                        mensagem: erro.message
-                    })
-                });
-            }
-            else {
-                resposta.status(400).json({
-                    status: false,
-                    mensagem: "Informe todos os dados conforme a documentação da API"
-                });
-            }
+                        mensagem: "Curso não encontrado!"
+                    });
+                }
+            })
         }
         else {
             resposta.status(400).json({
                 status: false,
-                mensagem: "Método não permitido ou dados no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem: "Método não permitido ou Professor no formato JSON não fornecido! Consulte a documentação da API"
             });
         }
     }
 
     excluir(requisiçao, resposta) {
         resposta.type("application/json");
+
         if (requisiçao.method === "DELETE" && requisiçao.is('application/json')) {
             const dados = requisiçao.body;
-            const {ID, cpf, nome, email, curso} = dados;
-            if (ID) {
-                const professor= new Professores(ID, cpf, nome, email, curso);
+            const codigo = dados.codigo;
+            if (codigo) {
+                const professor = new Professor(codigo);
                 professor.removerDoBancoDados().then(() => {
                     resposta.status(200).json({
                         status: true,
-                        mensagem: "Professor excluído com sucesso!"
+                        mensagem: "Professor excluído com sucesso!!"
                     });
                 }).catch((erro) => {
                     resposta.status(500).json({
@@ -106,22 +108,23 @@ export default class ProfessorCTRL {
             else {
                 resposta.status(400).json({
                     status: false,
-                    mensagem: "Informe o dados conforme a documentação da API"
+                    mensagem: "Informe codigo do Professor conforme a documentação da API"
                 });
             }
         }
         else {
             resposta.status(400).json({
                 status: false,
-                mensagem: "Método não permitido ou dados no formato JSON não fornecido! Consulte a documentação da API"
+                mensagem: "Método não permitido ou professor no formato JSON não fornecido! Consulte a documentação da API"
             });
         }
     }
 
     consultar(requisiçao, resposta) {
         resposta.type("application/json");
+
         if (requisiçao.method === "GET") {
-            const professor = new Professores();
+            const professor = new Professor();
             professor.consultar('').then((professores) => {
                 resposta.status(200).json(professores);
             }).catch((erro) => {
@@ -138,4 +141,4 @@ export default class ProfessorCTRL {
             });
         }
     }
-}
+}    

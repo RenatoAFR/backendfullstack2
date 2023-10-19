@@ -1,40 +1,43 @@
 import CursoBD from '../Persistencia/CursoBD.js';
+export default class Curso {
 
-class Cursos{
+    #codigoCur;
+    #cursos;
 
-    #ID;
-    #curso;
 
-    constructor (ID, curso) {
-        this.#ID = ID;
-        this.#curso = curso
+    constructor(codigoCur, cursos) {
+        this.#codigoCur = codigoCur;
+        this.#cursos = cursos
     }
 
-    get ID() {
-        return this.#ID
-    }
-    set ID(novoID) {
-        this.#ID = novoID
+    get codigoCur() {
+        return this.#codigoCur
     }
 
-    get curso() {
-        return this.#curso
+    set codigoCur(novoCodigoCur) {
+        this.#codigoCur = novoCodigoCur
     }
-    set curso(novoCurso) {
-        this.#curso = novoCurso
+
+    get cursos() {
+        return this.#cursos
     }
+
+    set cursos(novaCursos) {
+        this.#cursos = novaCursos
+    }
+
 
 
     toJSON() {
         return {
-            "ID": this.#ID,
-            "curso": this.#curso
+            "codigoCur": this.#codigoCur,
+            "cursos": this.#cursos
         }
     }
 
     async gravar() {
         const cursoBD = new CursoBD();
-        this.ID = await cursoBD.incluir(this);
+        this.codigo = await cursoBD.incluir(this);
     }
 
     async atualizar() {
@@ -43,7 +46,7 @@ class Cursos{
     }
 
     async removerDoBancoDados() {
-        const cursoBD = new CursoBD();
+        const cursoBD = new cursoBD();
         await cursoBD.excluir(this);
     }
 
@@ -53,6 +56,9 @@ class Cursos{
         return cursos;
     }
 
+    async consultarCodigo(codigoCur) {
+        const cursoBD = new CursoBD();
+        const cursos = await cursoBD.consultarCodigo(codigoCur);
+        return cursos;
+    }
 }
-
-export default Cursos;

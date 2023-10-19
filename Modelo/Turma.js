@@ -1,78 +1,75 @@
 import TurmaBD from '../Persistencia/TurmaBD.js';
 export default class Turma {
 
-    #Professor;
-    #Curso;
-    #Data;
-    #Hora;
-    #TipoDeAula;
-    #QtdAlunos;
+    #registro;
+    #data;
+    #horaEntrada;
+    #horaSaida;
+    #listaProfessores;
 
-    constructor(Professor, Curso, Data, Hora, TipoDeAula, QtdAlunos) {
-        this.#Professor = Professor;
-        this.#Curso = Curso;
-        this.#Data = Data;
-        this.#Hora = Hora;
-        this.#TipoDeAula = TipoDeAula;
-        this.#QtdAlunos = QtdAlunos
+    constructor(registro, data, horaEntrada, horaSaida, listaProfessores) {
+        this.#registro = registro;
+        this.#data = data;
+        this.#horaEntrada = horaEntrada;
+        this.#horaSaida = horaSaida;
+        this.#listaProfessores = listaProfessores
     }
 
-    get Professor() {
-        return this.#Professor
-    }
-    set Professor(novoProfessor) {
-        this.#Professor = novoProfessor
+    get registro() {
+        return this.#registro
     }
 
-    get Curso() {
-        return this.#Curso
-    }
-    set Curso(novoCurso) {
-        this.#Curso = novoCurso
+    set registro(novoRegistro) {
+        this.#registro = novoRegistro
     }
 
-    get Data() {
-        return this.#Data
-    }
-    set Data(novoData) {
-        this.#Data = novoData
+    get horaEntrada() {
+        return this.#horaEntrada
     }
 
-    get Hora() {
-        return this.#Hora
-    }
-    set Hora(novoHora) {
-        this.#Hora = novoHora
+    set horaEntrada(novaHoraEntrada) {
+        this.#horaEntrada = novaHoraEntrada
     }
 
-    get QtdAlunos() {
-        return this.#QtdAlunos
-    }
-    set QtdAlunos(novoQtdAlunos) {
-        this.#QtdAlunos = novoQtdAlunos
+    get horaSaida() {
+        return this.#horaSaida
     }
 
-    get TipoDeAula() {
-        return this.#TipoDeAula
+    set horaSaida(novaHoraSaida) {
+        this.#horaSaida = novaHoraSaida
     }
-    set TipoDeAula(novoTipoDeAula) {
-        this.#TipoDeAula = novoTipoDeAula
+
+    get data() {
+        return this.#data
     }
+
+    set data(novaData) {
+        this.#data = novaData
+    }
+
+    get listaProfessores() {
+        return this.#listaProfessores
+    }
+
+    set listaProfessores(novaListaProfessores) {
+        this.#listaProfessores = novaListaProfessores
+    }
+
 
     toJSON() {
         return {
-            "Professor": this.#Professor,
-            "Curso": this.#Curso,
-            "Data": this.#Data,
-            "Hora": this.#Hora,
-            "QtdAlunos": this.#QtdAlunos,
-            "TipoDeAula": this.#TipoDeAula
+            "registro": this.#registro,
+            "data": this.#data,
+            "horaEntrada": this.#horaEntrada,
+            "horaSaida": this.#horaSaida,
+            "professor": this.#listaProfessores
         }
     }
 
     async gravar() {
         const turmaBD = new TurmaBD();
         await turmaBD.incluir(this);
+
     }
 
     async atualizar() {
@@ -85,9 +82,10 @@ export default class Turma {
         await turmaBD.excluir(this);
     }
 
-    async consultar(termo) {
+    async consultar() {
         const turmaBD = new TurmaBD();
-        const turmas = await turmaBD.consultar(termo);
+        const turmas = await turmaBD.consultar();
         return turmas;
     }
+
 }
