@@ -21,13 +21,13 @@ jobs:
   producao-deploy:
     env:
       USUARIO: aluno38-pfsii
-      SENHA: LqX7yJjCaLxBv00V4SDO
+      SENHA: aluno38-pfsii
       PORTA: 3224
     if: github.ref == 'refs/heads/main'
     needs: [deploy-init]
     runs-on: ubuntu-latest
     
-    steps: 
+    steps:
       - uses: actions/checkout@v3
       - name: INICIANDO A PUBLICAÇÃO PARA PRODUÇÃO
         run: echo INICIANDO... 
