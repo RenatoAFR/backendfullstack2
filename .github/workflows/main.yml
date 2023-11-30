@@ -21,7 +21,7 @@ jobs:
   producao-deploy:
     env:
       USUARIO: aluno38-pfsii
-      SENHA: prVIJImM9Ooy1effq9KY
+      SENHA: aluno38-pfsii
       PORTA: 3224
     if: github.ref == 'refs/heads/main'
     needs: [deploy-init]
